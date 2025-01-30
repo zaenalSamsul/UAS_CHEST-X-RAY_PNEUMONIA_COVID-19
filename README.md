@@ -29,3 +29,4 @@ Tahap pra-pemrosesan dalam penelitian ini melibatkan normalisasi dan augmentasi 
 
 4. Klasifikasi <br>
 Peneliti melakukan klasifikasi pada dataset yang telah diproses sebelumnya. Selanjutnya, implementasi arsitektur VGGNet pada Gambar 4 dan proses pelatihan dimulai. Implementasi arsitektur VGGNet merupakan komponen penting dari Convolutional Neural Network (CNN), seperti yang ditunjukkan pada Gambar 4 (Fitriani et al., 2024).Setelah dibangun, arsitektur tersebut menjalani pelatihan, menghasilkan model yang siap untuk pengujian dan klasifikasi gambar. <br>
+![kaggle chest x-ray](kaggle2.png) <br>
