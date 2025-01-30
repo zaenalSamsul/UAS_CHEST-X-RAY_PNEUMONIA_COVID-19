@@ -83,13 +83,55 @@ Tabel 1 ini menunjukkan hasil proses pelatihan model selama 11 epoch dengan metr
 Gambar 9 menampilkan dua grafik yang menggambarkan performa model VGG16 selama pelatihan, dengan grafik kiri menunjukkan akurasi dan grafik kanan menunjukkan loss terhadap jumlah epoch. Pada grafik akurasi, training accuracy meningkat secara bertahap, sementara validation accuracy mengalami peningkatan cepat di awal sebelum akhirnya stabil, menunjukkan bahwa model dengan cepat memahami pola dalam data validasi dan mencapai performa optimal. Pada grafik loss, baik training loss maupun validation loss mengalami penurunan konsisten, yang menandakan bahwa model semakin baik dalam memprediksi data. Penurunan validation loss yang lebih cepat di awal, namun tetap mengikuti tren training loss, menunjukkan bahwa model tidak mengalami overfitting yang signifikan. Secara keseluruhan, model VGG16 ini menunjukkan hasil pelatihan yang stabil dan optimal, dengan akurasi tinggi dan loss rendah setelah beberapa epoch, yang menandakan model telah berhasil belajar dari data secara efektif.<br>
 
 ## 3.5 Testing
+Pengujian adalah tahap akhir dalam penelitian ini, di mana model yang telah dilatih dievaluasi menggunakan beberapa metrik yang umum digunakan untuk menilai kinerjanya. Evaluasi ini bertujuan untuk menentukan apakah model siap untuk pengembangan lebih lanjut atau aplikasi, serta apakah dapat dipublikasikan dan digunakan oleh pengguna.<br>
 
-![gambar 9](folder/10.png) <br>
-![gambar 9](folder/10.png) <br>
-![gambar 9](folder/10.png) <br>
-![gambar 9](folder/10.png) <br>
-![gambar 9](folder/10.png) <br>
-![gambar 9](folder/10.png) <br>
-![gambar 9](folder/10.png) <br>
-![gambar 9](folder/10.png) <br>
-![gambar 9](folder/10.png) <br>
+Selama pengujian, model diberikan citra atau sampel data dari test dataset yang belum pernah ditemukan selama fase pelatihan. Selanjutnya, model menghasilkan prediksi atau klasifikasi berdasarkan sampel data yang belum pernah dilihat sebelumnya. Prediksi ini kemudian dibandingkan dengan label asli atau nilai ground truth dari data uji untuk menilai kinerja model.<br>
+
+Pengujian pertama dilakukan menggunakan citra X-ray. Hasil prediksi model dapat dilihat pada Gambar. Pengujian kedua dilakukan menggunakan citra ruangan berantakan. Hasil prediksi model untuk pengujian ini dapat dilihat pada Gambar 10. <br>
+![gambar 9](folder/11.png) <br>
+
+Setelah melakukan pengujian langsung pada data citra X-ray dada, langkah terakhir adalah mengevaluasi kinerja model menggunakan confusion matrix, yang merupakan salah satu metode untuk menilai performa model klasifikasi. Evaluasi model berdasarkan confusion matrix dapat direpresentasikan dalam bentuk Gambar 10.<br>
+
+Dalam Gambar 10, dapat diamati bahwa model sebagian besar memprediksi kasus sebagai positif (Pred: 1). Secara khusus, mayoritas gambar yang memiliki penyakit paru-paru (True: 1) diklasifikasikan dengan benar oleh model. Namun, terdapat beberapa kasus di mana model salah mengklasifikasikan gambar normal (True: 0) sebagai memiliki penyakit (Pred: 1), yang mengakibatkan false positive.<br>
+
+Selain confusion matrix, kinerja model juga dievaluasi menggunakan metrik seperti precision, recall, dan F1-score. Metrik ini memberikan wawasan tentang kemampuan model dalam mengidentifikasi kasus positif dan negatif dengan benar. Hasil evaluasi termasuk akurasi, precision, recall, dan F1-score dapat dilihat pada Gambar 11.<br>
+![Confusion Matrix](folder/12.png) 
+![Confusion matrix](folder/12_2.png) <br>
+![classification report](folder/13.png) <br>
+
+Pada hasil evaluasi model, performa klasifikasi untuk dua kelas, yaitu NORMAL dan PNEUMONIA, dianalisis berdasarkan metrik-metrik utama seperti precision, recall, f1-score, dan support. Berikut penjelasan rinci dari masing-masing metrik beserta perhitungannya:<br>
+![pneumonia evaluasi](folder/14.png) <br>
+Total Support : Total jumlah sampel untuk kategori PNEUMONIA adalah 30.<br>
+Normal evaluasi: <br>
+![normal evaluasi](folder/15.png) <br>
+Total Support : Total jumlah sampel untuk kategori NORMAL adalah 32. <br>
+
+Model yang dievaluasi menunjukkan kinerja klasifikasi yang sangat baik dengan nilai akurasi sebesar 98%. Akurasi ini dihitung berdasarkan jumlah True Positives (TP) dan True Negatives (TN) yang dibagi dengan total jumlah sampel. Dalam hal ini, hasilnya adalah 61 (TP kategori NORMAL dan PNEUMONIA) dibagi dengan 63 (jumlah total sampel), yang menghasilkan akurasi 0,98 atau 98%. Hal ini menunjukkan bahwa model dapat mengklasifikasikan sebagian besar sampel dengan benar. <br>
+
+Untuk kategori NORMAL, model menunjukkan kinerja yang sangat baik. Precision untuk kategori ini adalah 100%, yang berarti bahwa semua sampel yang diklasifikasikan sebagai NORMAL benar-benar merupakan kasus NORMAL. Recall, atau sensitivitas, untuk kategori ini adalah 97%, yang berarti bahwa model berhasil mengidentifikasi 97% dari seluruh sampel NORMAL yang ada. F1-Score untuk kategori NORMAL adalah 98%, yang menunjukkan keseimbangan yang sangat baik antara precision dan recall dalam mendeteksi kategori ini. <br>
+
+Begitu pula dengan kategori PNEUMONIA, model juga menunjukkan performa yang sangat baik. Precision untuk kategori PNEUMONIA adalah 97%, yang berarti bahwa hampir semua sampel yang diklasifikasikan sebagai PNEUMONIA benar-benar berasal dari kategori tersebut. Recall untuk kategori ini adalah 100%, yang menunjukkan bahwa model berhasil mengidentifikasi seluruh sampel PNEUMONIA tanpa ada yang terlewat. F1-Score untuk kategori PNEUMONIA juga mencapai 98%, mencerminkan keseimbangan yang baik antara precision dan recall.<br>
+
+Secara keseluruhan, model ini memiliki performa yang sangat baik dalam mendeteksi kedua kategori, NORMAL dan PNEUMONIA. Dengan nilai akurasi yang tinggi dan skor precision, recall, serta F1-Score yang konsisten di angka 98% untuk kedua kategori, model ini dapat diandalkan untuk aplikasi deteksi medis, khususnya dalam identifikasi pneumonia pada gambar medis.<br>
+![roc grafik](folder/16.png) <br>
+
+Pada Gambar 13, yang digunakan untuk mengevaluasi kinerja model klasifikasi. Kurva ROC menunjukkan hubungan antara True Positive Rate (Sensitivity) dan False Positive Rate pada berbagai threshold.Dalam grafik ini, garis biru menunjukkan kurva ROC model dengan Area Under the Curve (AUC) = 1.00, yang menandakan bahwa model memiliki performa sempurna dalam membedakan antara kelas positif dan negatif. Kurva yang menyentuh sudut kiri atas (0,1) tanpa menyimpang menunjukkan bahwa model memiliki sensitivitas 100% dan spesifisitas 100%, tanpa kesalahan klasifikasi. Hasil ini mengindikasikan bahwa model sangat baik dalam memprediksi kelas positif dan negatif, namun perlu dilakukan validasi lebih lanjut untuk memastikan tidak terjadi overfitting. <br>
+![gambar 14 xray normal](folder/17.png) <br>
+Gambar 14  menunjukkan hasil prediksi model deep learning pada citra X-ray dada, di mana model mengklasifikasikan gambar sebagai NORMAL dengan tingkat kepercayaan sebesar 88.44%. Informasi yang ditampilkan mencakup nama file gambar "Normal Chest X-ray.jpeg", hasil prediksi model yang menyatakan kondisi paru-paru dalam keadaan normal, serta akurasi prediksi sebesar 88.44%. Hasil ini mengindikasikan bahwa model cukup yakin dalam mengidentifikasi kondisi paru-paru yang sehat berdasarkan citra X-ray. Namun, meskipun tingkat kepercayaan model cukup tinggi, dalam praktik medis tetap diperlukan validasi lebih lanjut oleh dokter spesialis radiologi untuk memastikan diagnosis yang lebih akurat.<br>
+![gambar 15 prediksi pneumonia](folder/18.png) <br>
+Gambar 15 menunjukkan hasil prediksi model deep learning pada citra X-ray dada, di mana model mengklasifikasikan gambar sebagai PNEUMONIA dengan tingkat kepercayaan sebesar 95.59%. Informasi yang ditampilkan meliputi nama file gambar "Pneumonia Test1.jpeg", hasil prediksi yang menunjukkan bahwa pasien kemungkinan besar mengalami pneumonia, serta akurasi model dalam memberikan prediksi ini sebesar 95.59%. Tingkat kepercayaan yang tinggi menunjukkan bahwa model cukup yakin dengan diagnosisnya. Namun, dalam praktik medis, hasil ini tetap harus dikonfirmasi lebih lanjut oleh dokter spesialis radiologi untuk memastikan diagnosis yang lebih akurat sebelum menentukan langkah pengobatan yang tepat. <br>
+
+# BAB IV KESIMPULAN <br>
+Penelitian ini berhasil mengembangkan model deep learning berbasis Convolutional Neural Network (CNN) dengan arsitektur VGG16 untuk mendeteksi pneumonia akibat COVID-19 dari citra X-ray paru-paru. Model yang dikembangkan menunjukkan performa yang sangat baik, dengan akurasi mencapai 98% serta precision, recall, dan F1-score yang tinggi untuk kategori NORMAL dan PNEUMONIA. Evaluasi menggunakan confusion matrix dan ROC curve menunjukkan bahwa model memiliki sensitivitas dan spesifisitas yang optimal dalam membedakan kondisi paru-paru yang sehat dan terinfeksi. <br>
+
+Meskipun hasilnya menjanjikan, penelitian ini memiliki beberapa keterbatasan, terutama dalam hal jumlah dataset yang terbatas dan variasi kualitas citra X-ray yang digunakan. Faktor ini dapat mempengaruhi generalisasi model saat diterapkan pada data baru dengan karakteristik berbeda. Selain itu, interpretabilitas model bagi tenaga medis masih perlu ditingkatkan agar lebih mudah dipahami dan digunakan dalam praktik klinis. <br>
+
+Untuk penelitian di masa depan, disarankan untuk memperluas dataset dengan sumber yang lebih beragam guna meningkatkan robustitas model. Eksplorasi arsitektur deep learning lainnya, seperti ResNet atau EfficientNet, dapat dilakukan untuk meningkatkan akurasi serta efisiensi komputasi. Selain itu, pengembangan sistem berbasis web atau aplikasi dapat menjadi langkah strategis untuk mendukung implementasi model ini dalam dunia medis, sehingga dapat digunakan sebagai alat bantu diagnosis yang lebih praktis dan mudah diakses oleh tenaga kesehatan. <br>
+
+# DAFTAR PUSTAKA <br>
+[1] Dr. Sunil L. Bangare, Hrushikesh S. Rajankar, Pavan S. Patil, Karan V. Nakum, & Gopal S. Paraskar. (2022). Pneumonia Detection and Classification using CNN and VGG16. International Journal of Advanced Research in Science, Communication and Technology, 2(3), 771–779. https://doi.org/10.48175/ijarsct-3851 <br>
+[2] Fitriani, L., Latifah, A., & Cahyadiputra, M. R. (2024). Image Classification of Room Tidiness Using VGGNet with Data Augmentation. JUITA : Jurnal Informatika, 12(1), 111. https://doi.org/10.30595/juita.v12i1.21204 <br>
+[3] Gao, T. (2020). Chest X-ray image analysis and classification for COVID-19 pneumonia detection using Deep CNN. MedRxiv, 2020.08.20.20178913. https://www.medrxiv.org/content/10.1101/2020.08.20.20178913v2%0Ahttps://www.medrxiv.org/content/10.1101/2020.08.20.20178913v2.abstract <br>
+[4] Sharma, S., & Guleria, K. (2022). A Deep Learning based model for the Detection of Pneumonia from Chest X-Ray Images using VGG-16 and Neural Networks. Procedia Computer Science, 218, 357–366. https://doi.org/10.1016/j.procs.2023.01.018 <br>
+[5] Usama, S., Safwan, S., Bukhari, K., Syed, A., & Sajid, S. (2020). The evaluation of convolutional neural network (CNN) for the assessment of chest X-ray of COVID-19 patients. Annals of Clinical and Analytical Medicine, 11(06). https://doi.org/10.4328/acam.20175 <br>
+
